@@ -1,5 +1,5 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
+  <img alt="Vue logo" src="./assets/logo.png"/>
   <br />
   <div class="display">
     <input type="text" v-model="num1" class="display__input" />
