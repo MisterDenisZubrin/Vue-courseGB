@@ -1,18 +1,22 @@
 <template>
   <form action="#" class="form">
-    <!-- <select
-      class="form__input"
-      type="text"
+    <select
+      class="form__select"
       placeholder="Payment category"
       v-model="category"
     >
-      <option value="Transport"></option>
-      <option value="Food"></option>
-      <option value="Education"></option>
-    </select> -->
+      <option value="Transport" class="form__option" selected>Transport</option>
+      <option value="Food" class="form__option">Food</option>
+      <option value="Education" class="form__option">Education</option>
+    </select>
     <input class="form__input" type="text" placeholder="Payment value" v-model="value" />
     <input class="form__input" type="text" placeholder="Payment date" v-model="date" />
-    <input class="form__button" type="submit" value="Add Note" @click.prevent="addNote" />
+    <input
+      class="form__button"
+      type="submit"
+      value="Add Note"
+      @click.prevent="addToStore"
+    />
   </form>
 </template>
 
@@ -27,12 +31,15 @@ export default {
     };
   },
   methods: {
-    addNote() {
-      this.$emit("addToList", {
+    addToStore() {
+      const list = this.$store.getters.getNotesList;
+      list.push({
+        id: list.length + 1,
         date: this.date,
         value: this.value,
         category: this.category,
       });
+      this.$store.commit("setNotesList", list);
     },
   },
 };
@@ -49,8 +56,21 @@ export default {
   display: flex;
   flex-wrap: wrap;
 
+  &__select {
+    width: 100%;
+    margin: 0 auto 10px;
+    outline: none;
+    border: 0.5px solid grey;
+    background-color: white;
+    padding: 10px 15px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+
   &__input {
-    display: block;
     width: 100%;
     margin: 0 auto 10px;
     outline: none;

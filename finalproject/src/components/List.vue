@@ -8,7 +8,7 @@
         <span class="table__col table__col-name">Category</span>
         <span class="table__col table__col-name">Value</span>
       </div>
-      <div class="table__row" v-for="note in notes" :key="note.id">
+      <div class="table__row" v-for="note in paginatedData" :key="note.id">
         <span class="table__col">{{ note.id }}</span>
         <span class="table__col">{{ note.date }}</span>
         <span class="table__col">{{ note.category }}</span>

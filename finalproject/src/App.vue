@@ -4,7 +4,7 @@
       Add New Note
     </button>
   </List>
-  <!-- <Form @addToList="(note) => notes.push(note)" v-if="isFormVisible"></Form> -->
+  <Form></Form>
 </template>
 
 <script>
@@ -21,12 +21,7 @@ export default {
   },
   mounted() {
     this.$store.dispatch("fetchData");
-  },
-  // computed: {
-  //   notes() {
-  //     return this.$store.getters.getNotesList;
-  //   },
-  // },
+  }
 };
 </script>
 
