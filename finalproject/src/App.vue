@@ -1,8 +1,10 @@
 <template>
-  <List :notes="notes">
-    <button @click="isFormVisible = !isFormVisible" class="toggle-button">Add New Note</button>
+  <List>
+    <button @click="isFormVisible = !isFormVisible" class="toggle-button">
+      Add New Note
+    </button>
   </List>
-  <Form @addToList="(note) => notes.push(note)" v-if="isFormVisible"></Form>
+  <!-- <Form @addToList="(note) => notes.push(note)" v-if="isFormVisible"></Form> -->
 </template>
 
 <script>
@@ -14,15 +16,17 @@ export default {
   components: { List, Form },
   data() {
     return {
-      
-      isFormVisible: true,
-      notes: [
-        { date: "16.03.2010", category: "Food", value: 333 },
-        { date: "26.10.2011", category: "Food", value: 22 },
-        { date: "04.04.2014", category: "Transport", value: 1030 },
-      ],
+      isFormVisible: true
     };
   },
+  mounted() {
+    this.$store.dispatch("fetchData");
+  },
+  // computed: {
+  //   notes() {
+  //     return this.$store.getters.getNotesList;
+  //   },
+  // },
 };
 </script>
 

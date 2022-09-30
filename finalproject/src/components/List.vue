@@ -8,8 +8,8 @@
         <span class="table__col table__col-name">Category</span>
         <span class="table__col table__col-name">Value</span>
       </div>
-      <div class="table__row" v-for="(note, idx) in paginatedData" :key="idx + pageSize * pageNumber">
-        <span class="table__col">{{ idx + pageSize * pageNumber }}</span>
+      <div class="table__row" v-for="note in notes" :key="note.id">
+        <span class="table__col">{{ note.id }}</span>
         <span class="table__col">{{ note.date }}</span>
         <span class="table__col">{{ note.category }}</span>
         <span class="table__col">{{ note.value }}</span>
@@ -31,13 +31,10 @@
 <script>
 export default {
   name: "List",
-  props: {
-    notes: Array,
-  },
   data() {
     return {
       pageNumber: 0,
-      pageSize: 5,
+      pageSize: 4,
     };
   },
   methods: {
@@ -50,12 +47,19 @@ export default {
   },
   computed: {
     pageCount() {
-      return Math.ceil(this.notes.length / this.pageSize);
+      if (this.notes) {
+        return Math.ceil(this.notes.length / this.pageSize);
+      }
     },
     paginatedData() {
-      const start = this.pageNumber * this.pageSize,
-        end = start + this.pageSize;
-      return this.notes.slice(start, end);
+      if (this.notes) {
+        const start = this.pageNumber * this.pageSize,
+          end = start + this.pageSize;
+        return this.notes.slice(start, end);
+      }
+    },
+    notes() {
+      return this.$store.getters.getNotesList;
     },
   },
 };

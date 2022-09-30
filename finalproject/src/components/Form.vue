@@ -1,11 +1,15 @@
 <template>
   <form action="#" class="form">
-    <input
+    <!-- <select
       class="form__input"
       type="text"
       placeholder="Payment category"
       v-model="category"
-    />
+    >
+      <option value="Transport"></option>
+      <option value="Food"></option>
+      <option value="Education"></option>
+    </select> -->
     <input class="form__input" type="text" placeholder="Payment value" v-model="value" />
     <input class="form__input" type="text" placeholder="Payment date" v-model="date" />
     <input class="form__button" type="submit" value="Add Note" @click.prevent="addNote" />
