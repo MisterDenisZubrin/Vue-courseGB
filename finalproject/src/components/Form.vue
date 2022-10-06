@@ -1,16 +1,20 @@
 <template>
   <form action="#" class="form">
+  <label for="category" class="form__label">Категория:</label>
     <select
       class="form__select"
       placeholder="Payment category"
       v-model="category"
+      id="category"
     >
       <option value="Transport" class="form__option" selected>Transport</option>
       <option value="Food" class="form__option">Food</option>
-      <option value="Education" class="form__option">Education</option>
+      <option value="Entertainment" class="form__option">Entertainment</option>
     </select>
-    <input class="form__input" type="text" placeholder="Payment value" v-model="value" />
-    <input class="form__input" type="text" placeholder="Payment date" v-model="date" />
+    <label for="value" class="form__label">Потрачено:</label>
+    <input class="form__input" type="text" placeholder="Payment value" v-model="value" id="value"/>
+    <label for="date" class="form__label">Дата:</label>
+    <input class="form__input" type="text" placeholder="Payment date" v-model="date" id="date"/>
     <input
       class="form__button"
       type="submit"
@@ -42,6 +46,12 @@ export default {
       this.$store.commit("setNotesList", list);
     },
   },
+  mounted() {
+    this.category = this.$route.params.category;
+    this.value = this.$route.query.value;
+    const date = new Date();
+    this.date = `${date.getDay()}.${date.getMonth()}.${date.getFullYear()}`;
+  }
 };
 </script>
 
@@ -49,7 +59,6 @@ export default {
 .form {
   max-width: 400px;
   width: 100%;
-  max-height: 200px;
   border: 1px solid black;
   padding: 7px;
   box-sizing: border-box;
@@ -69,6 +78,9 @@ export default {
     cursor: pointer;
   }
 
+  &__label {
+    margin: 0 0 12px 3px;
+  }
 
   &__input {
     width: 100%;

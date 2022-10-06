@@ -1,6 +1,8 @@
 <template>
   <div>
-    <slot></slot>
+    <!-- <button @click="isFormVisible = !isFormVisible" class="toggle-button">
+      Add New Note
+    </button> -->
     <div class="table">
       <div class="table__row">
         <span class="table__col table__col-name">#</span>
@@ -25,6 +27,17 @@
         nextPage
       </button>
     </div>
+    <ul class="presets">
+      <li class="presets__preset" @click="openForm('Food', 200)">
+        Еда 200
+      </li>
+      <li class="presets__preset" @click="openForm('Transport', 50)">
+        Транспорт 50
+      </li>
+      <li class="presets__preset" @click="openForm('Entertainment', 2000)">
+        Развлечения 2000
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -35,6 +48,7 @@ export default {
     return {
       pageNumber: 0,
       pageSize: 4,
+      // isFormVisible: true,
     };
   },
   methods: {
@@ -43,6 +57,9 @@ export default {
     },
     prevPage() {
       this.pageNumber--;
+    },
+    openForm(category, value) {
+      this.$router.push({ path: `/add/payment/${category}`, query: { value } });
     },
   },
   computed: {
@@ -105,5 +122,18 @@ export default {
     width: 100px;
     height: 40px;
   }
+}
+.toggle-button {
+  width: 200px;
+  height: 50px;
+  background-color: cadetblue;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  padding: 5px 15px;
+  cursor: pointer;
+  margin: 20px 0 20px 200px;
 }
 </style>
