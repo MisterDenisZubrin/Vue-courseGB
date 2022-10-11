@@ -22,6 +22,12 @@ export default createStore({
         category: "Transport",
         value: 1030
       },
+      {
+        id: 4,
+        date: "04.12.2016",
+        category: "Entertainment",
+        value: 1030
+      },
     ] 
   },
   getters: {
@@ -32,6 +38,15 @@ export default createStore({
   mutations: {
     setNotesList({ notes }, payload) {
       notes = payload;
+    },
+    editNote({ notes }, newNote) {
+      const oldNote = notes.find(note => note.id === newNote.id);
+      notes.splice(notes.indexOf(oldNote), 1, newNote);
+    },
+    removeNoteFromList({notes}, id) {
+      // Думаю, можно сделать лучше
+      const el = notes.find(note => note.id === id);
+      notes.splice(notes.indexOf(el), 1)
     }
   },
   // Проблема с обновлением данных
