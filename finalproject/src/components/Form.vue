@@ -1,6 +1,6 @@
 <template>
   <form action="#" class="form">
-  <label for="category" class="form__label">Категория:</label>
+    <label for="category" class="form__label">Категория:</label>
     <select
       class="form__select"
       placeholder="Payment category"
@@ -12,13 +12,33 @@
       <option value="Entertainment" class="form__option">Entertainment</option>
     </select>
     <label for="value" class="form__label">Потрачено:</label>
-    <input class="form__input" type="text" placeholder="Payment value" v-model="value" id="value"/>
+    <input
+      class="form__input"
+      type="text"
+      placeholder="Payment value"
+      v-model="value"
+      id="value"
+    />
     <label for="date" class="form__label">Дата:</label>
-    <input class="form__input" type="text" placeholder="Payment date" v-model="date" id="date"/>
+    <input
+      class="form__input"
+      type="text"
+      placeholder="Payment date"
+      v-model="date"
+      id="date"
+    />
+    <input
+      class="form__button"
+      type="submit"
+      value="Edit Note"
+      v-if="id"
+      @click.prevent="editNote"
+    />
     <input
       class="form__button"
       type="submit"
       value="Add Note"
+      v-else
       @click.prevent="addToStore"
     />
   </form>
@@ -32,6 +52,7 @@ export default {
       date: "",
       value: "",
       category: "",
+      id: null,
     };
   },
   methods: {
@@ -45,13 +66,29 @@ export default {
       });
       this.$store.commit("setNotesList", list);
     },
+    editNote() {
+      if (this.id) {
+        const newNote = {
+          id: +this.id,
+          date: this.date,
+          value: this.value,
+          category: this.category,
+        };
+        this.$store.commit("editNote", newNote);
+      }
+    },
   },
   mounted() {
     this.category = this.$route.params.category;
     this.value = this.$route.query.value;
-    const date = new Date();
-    this.date = `${date.getDay()}.${date.getMonth()}.${date.getFullYear()}`;
-  }
+    if (this.$route.query.id) {
+      this.id = this.$route.query.id;
+      this.date = this.$route.query.date;
+    } else {
+      const date = new Date();
+      this.date = `${date.getDay()}.${date.getMonth()}.${date.getFullYear()}`;
+    }
+  },
 };
 </script>
 

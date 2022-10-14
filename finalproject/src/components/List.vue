@@ -1,8 +1,5 @@
 <template>
   <div>
-    <!-- <button @click="isFormVisible = !isFormVisible" class="toggle-button">
-      Add New Note
-    </button> -->
     <div class="table">
       <div class="table__row">
         <span class="table__col table__col-name">#</span>
@@ -15,6 +12,10 @@
         <span class="table__col">{{ note.date }}</span>
         <span class="table__col">{{ note.category }}</span>
         <span class="table__col">{{ note.value }}</span>
+        <button @click="toggleContextMenu">+</button>
+        <transition name="fade">
+          <ContextMenu v-if="isVisible" :row="+note.id"></ContextMenu>
+        </transition>
       </div>
       <button class="table__button" @click="prevPage" :disabled="pageNumber === 0">
         prevPage
@@ -28,12 +29,8 @@
       </button>
     </div>
     <ul class="presets">
-      <li class="presets__preset" @click="openForm('Food', 200)">
-        Еда 200
-      </li>
-      <li class="presets__preset" @click="openForm('Transport', 50)">
-        Транспорт 50
-      </li>
+      <li class="presets__preset" @click="openForm('Food', 200)">Еда 200</li>
+      <li class="presets__preset" @click="openForm('Transport', 50)">Транспорт 50</li>
       <li class="presets__preset" @click="openForm('Entertainment', 2000)">
         Развлечения 2000
       </li>
@@ -42,13 +39,14 @@
 </template>
 
 <script>
+import ContextMenu from "./ContextMenu.vue";
 export default {
   name: "List",
   data() {
     return {
       pageNumber: 0,
       pageSize: 4,
-      // isFormVisible: true,
+      isVisible: true,
     };
   },
   methods: {
@@ -61,6 +59,9 @@ export default {
     openForm(category, value) {
       this.$router.push({ path: `/add/payment/${category}`, query: { value } });
     },
+    toggleContextMenu() {
+      this.isVisible = !this.isVisible
+    }
   },
   computed: {
     pageCount() {
@@ -79,6 +80,7 @@ export default {
       return this.$store.getters.getNotesList;
     },
   },
+  components: { ContextMenu },
 };
 </script>
 
@@ -135,5 +137,15 @@ export default {
   padding: 5px 15px;
   cursor: pointer;
   margin: 20px 0 20px 200px;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>
