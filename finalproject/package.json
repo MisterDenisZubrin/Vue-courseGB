@@ -45,7 +45,7 @@
     },
     
     "testEnvironment": "jsdom",
-    "collectCoverage": true,
+    "collectCoverage": false,
     "collectCoverageFrom": [
       "**/*.{js,vue}",
       "!**/node_modules/**",
