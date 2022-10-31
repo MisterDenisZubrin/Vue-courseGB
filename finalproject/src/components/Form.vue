@@ -41,8 +41,6 @@
       v-else
       @click.prevent="addToStore"
     />
-    <!-- Ошибка в this.$route.params.category-->
-    <!-- Нужны параметры-заглушки для тестов -->
     <!-- coverage лучше отключать, без него не показывает где ошибка -->
   </form>
 </template>
