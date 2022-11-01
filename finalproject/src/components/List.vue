@@ -12,7 +12,7 @@
         <span class="table__col">{{ note.date }}</span>
         <span class="table__col">{{ note.category }}</span>
         <span class="table__col">{{ note.value }}</span>
-        <button @click="toggleContextMenu">+</button>
+        <button @click="toggleContextMenu" class="table__context-btn">+</button>
         <transition name="fade">
           <ContextMenu v-if="isVisible" :row="+note.id"></ContextMenu>
         </transition>
@@ -137,6 +137,17 @@ export default {
   padding: 5px 15px;
   cursor: pointer;
   margin: 20px 0 20px 200px;
+}
+
+.presets {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style-type: none;
+
+  &__preset {
+    max-width: 200px;
+  }
 }
 
 .fade-enter-active,

@@ -41,6 +41,7 @@
       v-else
       @click.prevent="addToStore"
     />
+    <!-- coverage лучше отключать, без него не показывает где ошибка -->
   </form>
 </template>
 

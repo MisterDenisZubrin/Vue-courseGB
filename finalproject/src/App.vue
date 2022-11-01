@@ -1,10 +1,4 @@
 <template>
-  <!-- <List>
-    <button @click="isFormVisible = !isFormVisible" class="toggle-button">
-      Add New Note
-    </button>
-  </List>
-  <Form></Form> -->
   <nav class="nav">
     <router-link to="/">List</router-link>
     <br>
